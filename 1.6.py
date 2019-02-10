@@ -1,21 +1,24 @@
+from abc import ABC, abstractmethod
+
+
 class Animal:
     hunger = True
-
-    def feed(self):
-        print('чамк чамк чамк')
-        self.hunger = False
 
     def __init__(self, name, weight):
         self.name = name
         self.weight = weight
 
+    @abstractmethod
+    def collect(self):
+        pass
+
+    def feed(self):
+        pass
+
 
 class Birds(Animal):
     fly = True
     egg = 0
-
-    def collect_egs(self, egg):
-        self.egg += egg
 
 
 class Mammal(Animal):
@@ -25,38 +28,68 @@ class Mammal(Animal):
 class Duck(Birds):
     voice = 'quack'
 
+    def collect(self):
+        print(f"Egg is collected from {self.name}")
+
+    def feed(self):
+        print(f"{self.name} was fed with forage")
+
 
 class Chicken(Birds):
     voice = 'squawk'
 
+    def collect(self):
+        print(f"Egg is collected from {self.name}")
+
+    def feed(self):
+        print(f"{self.name} was fed with forage")
+
 
 class Goose(Birds):
     voice = 'honk'
+
+    def collect(self):
+        print(f"Egg is collected from {self.name}")
+
+    def feed(self):
+        print(f"{self.name} was fed with forage")
 
 
 class Cow(Mammal):
     voice = 'Moo'
     milk = False
 
-    def milk(self):
-        self.milk = True
+    def collect(self):
+        print(f"Milk is collected from {self.name}")
+
+    def feed(self):
+        print(f"{self.name} was fed with forage")
 
 
 class Sheep(Mammal):
     voice = 'baa'
     shear = False
 
-    def shear(self):
-        self.shear = True
+    def collect(self):
+        print(f"Wool is collected from {self.name}")
+
+    def feed(self):
+        print(f"{self.name} was fed with forage")
 
 
 class Goat(Mammal):
     voice = 'bleat'
     milk = False
 
-    def milk(self):
-        self.milk = True
+    def collect(self):
+        print(f"Milk is collected from {self.name}")
 
+    def feed(self):
+        print(f"{self.name} was fed with forage")
+
+
+animals = [Goose('Seriy', 10), Goose('Beliy', 15), Cow('Manka', 150), Sheep('Barashek', 40), Sheep('Kudryaviy', 45),
+           Chicken('Ko-Ko', 5), Chicken('Kukareku', 10), Goat('Roga', 30), Goat('Kopyta', 40), Duck('Kryakva', 20)]
 
 goose_0 = Goose('Seriy', 10)
 goose_1 = Goose('Beliy', 15)
@@ -89,4 +122,7 @@ def weight_calc(*args):
 
 weight_calc(goose_0, goose_1, cow_0, sheep_0, sheep_1, chicken_0, chicken_1, goat_0, goat_1, duck_0)
 
-print(Animal.hunger)
+
+for animal in animals:
+    animal.feed()
+    animal.collect()
