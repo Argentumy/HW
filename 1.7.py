@@ -4,7 +4,8 @@ def pol_calc():
     output = 0
 
     assert hide[0] == '+' or hide[0] == '-' or hide[0] == '*' or hide[0] == '/', 'Допустимые операнды +,-,*,/.'
-    assert len(hide) > 3, 'Максимум 2 числа.'
+    assert len(hide) <= 3, 'Максимум 2 числа.'
+    print(len(hide) == 3)
 
     if hide[0] == '+':
         output = int(hide[1]) + int(hide[2])
