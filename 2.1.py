@@ -104,4 +104,5 @@ def get_shop_list_by_dishes(dishes, persons=1):
     pprint.pprint(ingredient)
 
 
+
 get_shop_list_by_dishes(['Фахитос', 'Омлет'], 2)
