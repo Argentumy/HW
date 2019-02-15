@@ -23,7 +23,7 @@ def diclisting(self):
 
 with open('receipts.txt', encoding='utf8') as file:
     cook_book = {}
-    ing = 'ingridient_name'
+    ing = 'ingredient_name'
     qua = 'quantity'
     mea = 'measure'
     x1 = 0
@@ -49,6 +49,59 @@ with open('receipts.txt', encoding='utf8') as file:
     cook_book.setdefault('Запеченный картофель').append(x2[7:10])
     cook_book.setdefault('Фахитос').append(x2[10:15])
 
-    pprint.pprint(cook_book, width=100)
+    # pprint.pprint(cook_book, width=100)
 
-print(f'Статус файла {file.closed}')
+# print(f'Статус файла {file.closed}')
+
+
+
+# Task 2
+
+# {
+#   'Картофель': {'measure': 'кг', 'quantity': 2},
+#   'Молоко': {'measure': 'мл', 'quantity': 200},
+#   'Помидор': {'measure': 'шт', 'quantity': 8},
+#   'Сыр гауда': {'measure': 'г', 'quantity': 200},
+#   'Яйцо': {'measure': 'шт', 'quantity': 4},
+#   'Чеснок': {'measure': 'зубч', 'quantity': 6}
+# }
+
+
+def get_shop_list_by_dishes(dishes, persons=1):
+    dishes = dishes
+    persons = persons
+    ingredient = {}
+    repeat = 1
+    counter = []
+
+    for dish in dishes:
+        temp = cook_book.__getitem__(dish)
+        # pprint.pprint(cook_book.__getitem__(dish))
+        for list in temp:
+            # pprint.pprint(list)
+            for x in list:
+                # pprint.pprint(x)
+                ing_name = x['ingredient_name']
+                counter.append(ing_name)
+                # print(ing_name)
+                if ing_name in ingredient.keys():
+                    repeat += 1
+                    ingredient[ing_name] = {'measure': x['measure'], 'quantity': int(x['quantity'])}
+                else:
+                    ingredient[ing_name] = {'measure': x['measure'], 'quantity': int(x['quantity'])}
+
+    for x in set(counter):
+        temp1 = "{0}\n{1}".format(x, counter.count(x))
+        if counter.count(x) >= 2:
+            temp2 = ingredient[x].get('quantity') * 2
+            ingredient[x].update({'quantity': temp2})
+
+    for x in ingredient:
+        temp3 = persons
+        temp4 = ingredient[x].get('quantity')
+        ingredient[x].update({'quantity': temp3 * temp4})
+
+    pprint.pprint(ingredient)
+
+
+get_shop_list_by_dishes(['Фахитос', 'Омлет'], 2)

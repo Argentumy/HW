@@ -126,3 +126,5 @@ weight_calc(goose_0, goose_1, cow_0, sheep_0, sheep_1, chicken_0, chicken_1, goa
 for animal in animals:
     animal.feed()
     animal.collect()
+
+print(goose_0.__dict__)
