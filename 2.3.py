@@ -10,15 +10,22 @@
 # string2 = []
 # string3 = []
 #
-# for a in news2:
-#     string.append(a['description'].split(sep=' '))
 #
-# for b in string:
-#     for c in b:
-#         if len(c) >= 6:
-#             string2.append(c)
+# def task(self):
+#     for a in self:
+#         string.append(a['description'].lower().split(sep=' '))
 #
-# string2.sort(key=len, reverse=True)
+#     for b in string:
+#         for c in b:
+#             if len(c) >= 6:
+#                 string2.append(c)
+#
+#     string2.sort(key=len, reverse=True)
+#
+#     return string2
+#
+#
+# task(news2)
 #
 # string3 = collections.Counter(string2).most_common(10)
 # pprint(string3)
@@ -38,15 +45,22 @@ xml_title = root.findall('channel/item/description')
 string = []
 string2 = []
 
-for a in xml_title:
-    string.append(a.text.split(sep=' '))
 
-for b in string:
-    for c in b:
-        if len(c) >= 6:
-            string2.append(c)
+def task(self):
+    for a in self:
+        string.append(a.text.lower().split(sep=' '))
 
-string2.sort(key=len, reverse=True)
+    for b in string:
+        for c in b:
+            if len(c) >= 6:
+                string2.append(c)
+
+    string2.sort(key=len, reverse=True)
+
+    return string2
+
+
+task(xml_title)
 
 
 string3 = collections.Counter(string2).most_common(10)
