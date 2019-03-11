@@ -1,8 +1,11 @@
-import pprint
+from pprint import pprint
 
 
 def dictification(self):
     d1 = {}
+    ing = 'ingredient_name'
+    qua = 'quantity'
+    mea = 'measure'
     self = self
     d1.setdefault(ing, self[0]), d1.setdefault(qua, self[1]), d1.setdefault(mea, self[2])
     return d1
@@ -21,53 +24,38 @@ def diclisting(self):
         self[key] = []
 
 
-with open('receipts.txt', encoding='utf8') as file:
+def cook(self):
     cook_book = {}
-    ing = 'ingredient_name'
-    qua = 'quantity'
-    mea = 'measure'
-    x1 = 0
-    x2 = []
+    xkeys = 0
+    xvalues = []
     count = 0
-    count1 = 0
-    count2 = 0
 
-    for line in file:
+    for line in self:
         if '|' not in line and len(line) >= 3:
             cook_book.setdefault(line.strip())
-            x1 = cook_book.keys()
-            # print(x1)
+            xkeys = cook_book.keys()
         if len(line.strip()) == 1:
             count = int(line.strip())
-            # print(count)
         if '|' in line:
-            x2 += (dictification(line.strip().split(sep=' | ')), )
+            xvalues += (dictification(line.strip().split(sep=' | ')), )
 
     diclisting(cook_book)
-    cook_book.setdefault('Омлет').append(x2[0:3])
-    cook_book.setdefault('Утка по-пекински').append(x2[3:7])
-    cook_book.setdefault('Запеченный картофель').append(x2[7:10])
-    cook_book.setdefault('Фахитос').append(x2[10:15])
+    cook_book.setdefault('Омлет').append(xvalues[0:3])
+    cook_book.setdefault('Утка по-пекински').append(xvalues[3:7])
+    cook_book.setdefault('Запеченный картофель').append(xvalues[7:10])
+    cook_book.setdefault('Фахитос').append(xvalues[10:15])
 
-    # pprint.pprint(cook_book, width=100)
+    # pprint(cook_book, width=100)
 
-# print(f'Статус файла {file.closed}')
-
+    return cook_book
 
 
 # Task 2
 
-# {
-#   'Картофель': {'measure': 'кг', 'quantity': 2},
-#   'Молоко': {'measure': 'мл', 'quantity': 200},
-#   'Помидор': {'measure': 'шт', 'quantity': 8},
-#   'Сыр гауда': {'measure': 'г', 'quantity': 200},
-#   'Яйцо': {'measure': 'шт', 'quantity': 4},
-#   'Чеснок': {'measure': 'зубч', 'quantity': 6}
-# }
-
 
 def get_shop_list_by_dishes(dishes, persons=1):
+    with open('receipts.txt', encoding='utf8') as file:
+        cook_book = cook(file)
     dishes = dishes
     persons = persons
     ingredient = {}
@@ -76,14 +64,10 @@ def get_shop_list_by_dishes(dishes, persons=1):
 
     for dish in dishes:
         temp = cook_book.__getitem__(dish)
-        # pprint.pprint(cook_book.__getitem__(dish))
         for list in temp:
-            # pprint.pprint(list)
             for x in list:
-                # pprint.pprint(x)
                 ing_name = x['ingredient_name']
                 counter.append(ing_name)
-                # print(ing_name)
                 if ing_name in ingredient.keys():
                     repeat += 1
                     ingredient[ing_name] = {'measure': x['measure'], 'quantity': int(x['quantity'])}
@@ -101,8 +85,7 @@ def get_shop_list_by_dishes(dishes, persons=1):
         temp4 = ingredient[x].get('quantity')
         ingredient[x].update({'quantity': temp3 * temp4})
 
-    pprint.pprint(ingredient)
-
+    pprint(ingredient)
 
 
 get_shop_list_by_dishes(['Фахитос', 'Омлет'], 2)
